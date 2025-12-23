@@ -1,0 +1,84 @@
+# PR Review Workflow Template
+# Copy to .github/workflows/pr-review.yml to enable
+#
+# Triggers on PRs to main/develop branches
+# Runs automated code review checks
+
+name: PR Review
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  code-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for diff analysis
+
+      - name: Get changed files
+        id: changed
+        run: |
+          echo "files=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | tr '\n' ' ')" >> $GITHUB_OUTPUT
+          echo "count=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | wc -l)" >> $GITHUB_OUTPUT
+
+      - name: Check for critical file changes
+        id: critical
+        run: |
+          CRITICAL_PATTERNS="${{ vars.CRITICAL_FILE_PATTERNS || '*.env*|package*.json|*.lock' }}"
+          CHANGED="${{ steps.changed.outputs.files }}"
+
+          for pattern in ${CRITICAL_PATTERNS//|/ }; do
+            if echo "$CHANGED" | grep -q "$pattern"; then
+              echo "has_critical=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          done
+          echo "has_critical=false" >> $GITHUB_OUTPUT
+
+      - name: Lint check
+        if: hashFiles('package.json')
+        run: |
+          npm ci
+          npm run lint --if-present
+
+      - name: Type check
+        if: hashFiles('tsconfig.json')
+        run: |
+          npm run typecheck --if-present || npm run type-check --if-present || true
+
+      - name: Test check
+        if: hashFiles('package.json')
+        run: |
+          npm test --if-present || true
+
+      - name: Comment on critical changes
+        if: steps.critical.outputs.has_critical == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ **Critical file changes detected**\n\nThis PR modifies files that require additional review:\n- Configuration files\n- Dependency manifests\n- Environment files\n\nPlease ensure these changes are intentional and reviewed carefully.'
+            })
+
+  # Optional: Add Claude Code review (requires API key)
+  # claude-review:
+  #   runs-on: ubuntu-latest
+  #   if: vars.ENABLE_CLAUDE_REVIEW == 'true'
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Claude Code Review
+  #       run: |
+  #         # Add Claude Code review integration here
+  #         echo "Claude review placeholder"

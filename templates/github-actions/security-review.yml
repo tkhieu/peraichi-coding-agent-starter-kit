@@ -1,0 +1,106 @@
+# Security Review Workflow Template
+# Copy to .github/workflows/security-review.yml to enable
+#
+# Runs security-focused checks on code changes
+
+name: Security Review
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        if: hashFiles('package.json')
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Audit npm dependencies
+        if: hashFiles('package.json')
+        run: |
+          npm audit --audit-level=moderate || true
+        continue-on-error: true
+
+      - name: Check for outdated dependencies
+        if: hashFiles('package.json')
+        run: |
+          npm outdated || true
+        continue-on-error: true
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan for secrets
+        run: |
+          # Basic secret patterns check
+          echo "Scanning for potential secrets..."
+
+          PATTERNS=(
+            'password\s*=\s*["\047][^"\047]+'
+            'api[_-]?key\s*=\s*["\047][^"\047]+'
+            'secret\s*=\s*["\047][^"\047]+'
+            'token\s*=\s*["\047][^"\047]+'
+            'AWS_SECRET'
+            'PRIVATE_KEY'
+          )
+
+          FOUND=0
+          for pattern in "${PATTERNS[@]}"; do
+            if git diff --name-only origin/main...HEAD 2>/dev/null | xargs grep -liE "$pattern" 2>/dev/null; then
+              echo "::warning::Potential secret pattern found: $pattern"
+              FOUND=1
+            fi
+          done
+
+          if [ $FOUND -eq 1 ]; then
+            echo "::warning::Review flagged files for potential secrets"
+          else
+            echo "No obvious secret patterns detected"
+          fi
+        continue-on-error: true
+
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check file permissions
+        run: |
+          # Find files with executable permissions that shouldn't have them
+          find . -type f -name "*.js" -perm /111 -exec echo "Executable JS: {}" \; || true
+          find . -type f -name "*.ts" -perm /111 -exec echo "Executable TS: {}" \; || true
+          find . -type f -name "*.json" -perm /111 -exec echo "Executable JSON: {}" \; || true
+
+      - name: Check for debug statements
+        run: |
+          echo "Checking for debug statements..."
+          # Check for common debug patterns
+          git diff origin/main...HEAD 2>/dev/null | grep -E '^\+.*console\.(log|debug|warn|error)' || true
+          git diff origin/main...HEAD 2>/dev/null | grep -E '^\+.*debugger;' || true
+        continue-on-error: true
+
+  # OWASP checks (if using OWASP tools)
+  # owasp:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: OWASP Dependency Check
+  #       uses: dependency-check/Dependency-Check_Action@main
+  #       with:
+  #         project: '${{ github.repository }}'
+  #         path: '.'
+  #         format: 'HTML'

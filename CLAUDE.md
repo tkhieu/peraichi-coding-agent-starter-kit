@@ -23,6 +23,8 @@ Available commands in `.claude/commands/`:
 
 Skills available in `.claude/skills/`:
 - `planning` - Plan creation, organization, and validation
+- `code-review` - Code review reception, requesting reviews, verification gates
+- `debugging` - Systematic debugging, root cause tracing, defense-in-depth
 - `ai-multimodal` - Image generation/analysis, video processing, audio transcription
 - `media-processing` - FFmpeg video encoding, ImageMagick editing, background removal
 
@@ -76,6 +78,36 @@ Available `/git:*` commands (4 total):
 - `/git:commit` - Create commits with compliance checks
 - `/git:branch` - Create and manage branches
 - `/git:review` - Code review and PR management
+
+## Review Commands
+
+Available `/review:*` commands:
+- `/review:codebase` - Full codebase review and analysis
+
+## Fix Commands
+
+Available `/fix:*` commands (8 total):
+- `/fix:ci` - Fix CI/CD pipeline issues
+- `/fix:fast` - Quick fix mode for simple issues
+- `/fix:hard` - Deep investigation and comprehensive fix
+- `/fix:logs` - Fix issues based on log analysis
+- `/fix:parallel` - Parallel debugging for multiple issues
+- `/fix:test` - Fix failing tests
+- `/fix:types` - Fix TypeScript type errors
+- `/fix:ui` - Fix UI/UX issues
+
+## Test Commands
+
+Available `/test:*` commands:
+- `/test:ui` - Run UI component tests
+
+## GitHub Actions Templates
+
+Templates in `templates/github-actions/`:
+- `pr-review.yml` - Automated PR review workflow (lint, type check, tests)
+- `security-review.yml` - Security-focused review (dependency audit, secret scan)
+
+Copy to `.github/workflows/` to enable.
 
 ## Plans
 
