@@ -37,10 +37,45 @@ For parallel agent execution, see `.claude/docs/claude-flow-parallel-guide.md`.
 
 ## Workflows
 
+Workflow guides in `./.claude/workflows/`:
+- `primary-workflow.md` - Main development workflow
+- `development-rules.md` - Code standards and practices
+- `documentation-management.md` - Docs maintenance
+- `orchestration-protocol.md` - Multi-agent coordination
+
+Workflow steps:
 1. **Plan First:** Use `/plan:hard` to create implementation plan
 2. **Execute:** Use `/code:auto` to implement the plan
 3. **Parallel:** Use claude-flow MCP tools for parallel processing
 4. **CI/Testing:** See `DEVELOPMENT.md` for local workflow testing with `act`
+
+## SPARC Commands
+
+Available `/sparc:*` commands (16 total):
+- `/sparc:specification` - Define requirements and specs
+- `/sparc:pseudocode` - Write pseudocode structure
+- `/sparc:architecture` - Design system architecture
+- `/sparc:refinement` - Refine implementation details
+- `/sparc:completion` - Finalize and test
+- `/sparc:api` - API design and validation
+- `/sparc:database` - Database schema design
+- `/sparc:security` - Security architecture
+- `/sparc:performance` - Performance optimization
+- `/sparc:testing` - Test strategy design
+- `/sparc:devops` - Deployment architecture
+- `/sparc:monitoring` - Observability design
+- `/sparc:migration` - Data/code migration strategy
+- `/sparc:integration` - System integration design
+- `/sparc:ui` - UI/UX architecture
+- `/sparc:validation` - Validation and compliance
+
+## Git Commands
+
+Available `/git:*` commands (4 total):
+- `/git:status` - Check current branch status
+- `/git:commit` - Create commits with compliance checks
+- `/git:branch` - Create and manage branches
+- `/git:review` - Code review and PR management
 
 ## Plans
 

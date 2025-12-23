@@ -1,0 +1,110 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project: {{PROJECT_NAME}}
+
+## Role & Responsibilities
+
+Your role is to analyze user requirements, delegate tasks to appropriate sub-agents, and ensure cohesive delivery of features that meet specifications and architectural standards.
+
+## Workflows
+
+- Primary workflow: `./.claude/workflows/primary-workflow.md`
+- Development rules: `./.claude/workflows/development-rules.md`
+- Orchestration protocols: `./.claude/workflows/orchestration-protocol.md`
+- Documentation management: `./.claude/workflows/documentation-management.md`
+
+**IMPORTANT:** Follow strictly the development rules in `./.claude/workflows/development-rules.md` file.
+
+## Slash Commands
+
+### Planning
+- `/plan` - Create implementation plans with research phases
+- `/plan:fast` - Quick analysis without deep research
+- `/plan:hard` - Full analysis with parallel research
+- `/plan:parallel` - Multi-phase parallel planning
+- `/plan:validate` - Validate existing plan integrity
+
+### Implementation
+- `/code` - Execute implementation plan step-by-step
+- `/code:auto` - Auto-execute all phases without blocking gates
+
+### SPARC Agents
+- `/sparc:coder` - Implementation agent
+- `/sparc:architect` - System architecture agent
+- `/sparc:reviewer` - Code review agent
+- `/sparc:tester` - Testing agent
+- `/sparc:debugger` - Bug investigation agent
+- `/sparc:tdd` - Test-driven development agent
+- `/sparc:researcher` - Research and analysis agent
+- `/sparc:documenter` - Documentation agent
+- `/sparc:optimizer` - Performance optimization agent
+- `/sparc:designer` - UI/UX design agent
+- `/sparc:analyzer` - Code analysis agent
+- `/sparc:innovator` - Creative solutions agent
+- `/sparc:memory-manager` - Context persistence agent
+- `/sparc:batch-executor` - Bulk operation agent
+- `/sparc:swarm-coordinator` - Multi-agent coordination
+- `/sparc:workflow-manager` - Workflow orchestration agent
+
+### Git
+- `/git:cm` - Quick commit message
+- `/git:cp` - Commit and push
+- `/git:pr` - Pull request creation
+- `/git:merge` - Branch merge workflow
+
+## Team Standards
+
+{{TEAM_STANDARDS}}
+
+## Critical Paths
+
+{{CRITICAL_PATHS}}
+
+## Code Review Triggers
+
+- PRs to `main` branch
+- Files matching: `{{CRITICAL_FILE_PATTERNS}}`
+
+## Skills
+
+Skills available in `.claude/skills/`:
+- `planning` - Plan creation, organization, and validation
+- `ai-multimodal` - Image generation/analysis, video processing, audio transcription
+- `media-processing` - FFmpeg video encoding, ImageMagick editing, background removal
+
+## Plans Management
+
+Keep plans in `./plans/` folder:
+```
+plans/
+├── {YYMMDD-HHmm-slug}/       # Each plan in dated directory
+│   ├── plan.md               # Overview with YAML frontmatter
+│   ├── phase-01-*.md         # Phase implementation details
+│   └── research/             # Research reports (optional)
+└── reports/                  # Standalone reports
+```
+
+**Naming:** `{YYMMDD-HHmm}-{descriptive-slug}/`
+
+## Documentation
+
+Docs in `./docs/`:
+- `project-overview-pdr.md` - Product requirements
+- `code-standards.md` - Coding conventions
+- `codebase-summary.md` - Architecture overview
+- `system-architecture.md` - System design
+
+---
+
+## Template Variables
+
+Replace these placeholders when setting up your project:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{PROJECT_NAME}}` | Your project name | "My Awesome App" |
+| `{{TEAM_STANDARDS}}` | Team coding standards | "TypeScript strict mode, ESLint airbnb" |
+| `{{CRITICAL_PATHS}}` | Critical file paths | "src/auth/**, src/api/**" |
+| `{{CRITICAL_FILE_PATTERNS}}` | Files requiring review | "*.env*, package*.json" |
