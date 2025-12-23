@@ -23,6 +23,8 @@ Available commands in `.claude/commands/`:
 
 Skills available in `.claude/skills/`:
 - `planning` - Plan creation, organization, and validation
+- `ai-multimodal` - Image generation/analysis, video processing, audio transcription
+- `media-processing` - FFmpeg video encoding, ImageMagick editing, background removal
 
 ## Claude-Flow Integration
 
@@ -38,6 +40,20 @@ For parallel agent execution, see `.claude/docs/claude-flow-parallel-guide.md`.
 1. **Plan First:** Use `/plan:hard` to create implementation plan
 2. **Execute:** Use `/code:auto` to implement the plan
 3. **Parallel:** Use claude-flow MCP tools for parallel processing
+
+## Plans
+
+Keep plans in `./plans/` folder (root level, no nested subfolders):
+```
+plans/
+├── {YYMMDD-HHmm-slug}/
+│   ├── plan.md              # Overview with YAML frontmatter
+│   ├── phase-01-*.md        # Phase implementation details
+│   └── research/            # Research reports (optional)
+└── reports/                 # Standalone reports
+```
+
+**Naming:** `{YYMMDD-HHmm}-{descriptive-slug}/`
 
 ## Documentation
 
