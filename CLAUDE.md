@@ -40,6 +40,7 @@ For parallel agent execution, see `.claude/docs/claude-flow-parallel-guide.md`.
 1. **Plan First:** Use `/plan:hard` to create implementation plan
 2. **Execute:** Use `/code:auto` to implement the plan
 3. **Parallel:** Use claude-flow MCP tools for parallel processing
+4. **CI/Testing:** See `DEVELOPMENT.md` for local workflow testing with `act`
 
 ## Plans
 

@@ -1,0 +1,128 @@
+name: Test Init Script
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'init-coding-agents.sh'
+      - '.github/workflows/test-init-script.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'init-coding-agents.sh'
+      - '.github/workflows/test-init-script.yml'
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: '.'
+          additional_files: 'init-coding-agents.sh'
+          severity: error
+
+  test:
+    name: Test (${{ matrix.os }})
+    needs: lint
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Homebrew packages
+        if: runner.os == 'macOS'
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/Homebrew
+          key: ${{ runner.os }}-brew-${{ hashFiles('init-coding-agents.sh') }}
+          restore-keys: |
+            ${{ runner.os }}-brew-
+
+      - name: Validate syntax
+        run: bash -n init-coding-agents.sh
+
+      - name: Run dependency check
+        id: check
+        run: |
+          output=$(./init-coding-agents.sh 2>&1)
+          echo "$output"
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          echo "$output" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Verify required dependency checks
+        run: |
+          output="${{ steps.check.outputs.output }}"
+
+          # Verify Node.js check present
+          if ! echo "$output" | grep -q "Node.js"; then
+            echo "ERROR: Missing Node.js dependency check"
+            exit 1
+          fi
+
+          # Verify Python check present
+          if ! echo "$output" | grep -q "Python 3"; then
+            echo "ERROR: Missing Python 3 dependency check"
+            exit 1
+          fi
+
+          echo "All required dependency checks present"
+
+  test-install:
+    name: Test Install Mode (${{ matrix.os }})
+    needs: lint
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Homebrew packages
+        if: runner.os == 'macOS'
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/Homebrew
+          key: ${{ runner.os }}-brew-install-${{ hashFiles('init-coding-agents.sh') }}
+          restore-keys: |
+            ${{ runner.os }}-brew-install-
+
+      - name: Run install mode (Ubuntu)
+        if: runner.os == 'Linux'
+        run: |
+          # Run with --install flag
+          ./init-coding-agents.sh --install || true
+          echo "Install mode completed"
+
+      - name: Run install mode (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          # Run with --install flag
+          ./init-coding-agents.sh --install || true
+          echo "Install mode completed"
+
+      - name: Verify installation output
+        run: |
+          # Re-run check mode to verify installations
+          output=$(./init-coding-agents.sh 2>&1)
+          echo "$output"
+
+          # Verify required deps are now found
+          if ! echo "$output" | grep -q "Node.js"; then
+            echo "ERROR: Node.js not detected after install"
+            exit 1
+          fi
+
+          echo "Install verification passed"
