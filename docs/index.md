@@ -4,54 +4,48 @@ layout: home
 hero:
   name: "Claude Code AI Agent Starter"
   text: "Build AI-powered development workflows"
-  tagline: A comprehensive framework for Claude Code with SPARC methodology, multi-agent orchestration, and intelligent automation.
+  tagline: Multi-agent orchestration with SPARC methodology
   actions:
     - theme: brand
       text: Get Started
       link: /getting-started/installation
     - theme: alt
-      text: View on GitHub
-      link: https://github.com/anthropics/claude-code
+      text: View Commands
+      link: /getting-started/configuration
 
 features:
-  - icon: 🚀
-    title: Quick Setup
-    details: Get started in 5 minutes with pre-configured commands, skills, and workflows.
+  - icon: ⚡
+    title: 40+ Slash Commands
+    details: Planning, coding, debugging, git operations, and SPARC agents ready to use
   - icon: 🤖
-    title: SPARC Agents
-    details: 16 specialized AI agents for coding, reviewing, testing, debugging, and more.
+    title: SPARC Methodology
+    details: 16 specialized agents for architecture, coding, testing, and optimization
   - icon: 🔄
-    title: Claude-Flow
-    details: Multi-agent orchestration with parallel execution and swarm coordination.
-  - icon: 📝
-    title: Smart Planning
-    details: Research-driven implementation plans with validation and auto-execution.
+    title: Claude-Flow Integration
+    details: Parallel agent execution with swarm topologies for faster development
+  - icon: 🎯
+    title: Skill-Based System
+    details: Modular skills for debugging, code review, pair programming, and media processing
 ---
 
-## Quick Start
+## Quick Overview
 
-```bash
-# Clone the starter
-git clone https://github.com/anthropics/claude-code peraichi-ai-agent-starter
-cd peraichi-ai-agent-starter
+This starter kit provides a complete development environment for Claude Code with:
 
-# Start Claude Code
-claude
+- **Planning Commands** - `/plan`, `/plan:hard`, `/plan:parallel`
+- **Implementation Commands** - `/code`, `/code:auto`, `/code:parallel`
+- **Debugging Commands** - `/fix`, `/debug`, `/fix:ci`
+- **SPARC Agents** - 16 specialized agents for different tasks
+- **Workflows** - Documented development workflows
+- **Skills** - Reusable skill modules
 
-# Create a plan
-/plan:hard implement user authentication
+## Principles
 
-# Execute the plan
-/code:auto
-```
+### YAGNI - You Aren't Gonna Need It
+Don't implement features until they're actually needed.
 
-## Core Features
+### KISS - Keep It Simple, Stupid
+The simplest solution that works is usually the best.
 
-| Feature | Description |
-|---------|-------------|
-| `/plan:*` | 7 planning commands for research and implementation planning |
-| `/code:*` | 4 code execution modes including auto and parallel |
-| `/fix:*` | 8 debugging commands for various issue types |
-| `/sparc:*` | 16 specialized AI agents |
-| Skills | 6 skill categories with advanced capabilities |
-| Workflows | 4 development workflows for consistency |
+### DRY - Don't Repeat Yourself
+Abstract patterns when they repeat 3+ times.

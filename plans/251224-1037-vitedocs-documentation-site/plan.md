@@ -78,7 +78,7 @@ docs/
 | Phase | Description | Effort | Files | Status |
 |-------|-------------|--------|-------|--------|
 | 1 | VitePress Setup | 45min | 3 | DONE (2024-12-24) |
-| 2 | Landing + Getting Started | 45min | 4 | |
+| 2 | Landing + Getting Started | 45min | 4 | DONE (2024-12-24) |
 | 3 | Command Reference | 1.5h | 5 | |
 | 4 | Guides | 1.5h | 4 | |
 | 5 | Reference + Concepts | 1h | 5 | |

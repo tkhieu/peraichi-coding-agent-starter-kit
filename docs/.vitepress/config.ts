@@ -7,6 +7,9 @@ export default defineConfig({
   // Clean URLs (no .html extension)
   cleanUrls: true,
 
+  // Ignore dead links during incremental content creation
+  ignoreDeadLinks: true,
+
   // Code highlighting
   markdown: {
     theme: {
@@ -86,26 +89,15 @@ export default defineConfig({
       ]
     },
 
-    // Social links
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/anthropics/claude-code' }
-    ],
-
     // Footer
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright 2024'
+      copyright: 'Copyright 2024-2025'
     },
 
     // Search
     search: {
       provider: 'local'
-    },
-
-    // Edit link
-    editLink: {
-      pattern: 'https://github.com/anthropics/claude-code/edit/main/docs/:path',
-      text: 'Edit this page on GitHub'
     }
   }
 })
