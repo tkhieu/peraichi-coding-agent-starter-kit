@@ -4,9 +4,29 @@ Get productive with Claude Code in 5 minutes.
 
 ## Prerequisites
 
+**Required:**
 - Claude Code CLI installed
 - Git repository initialized
 - Node.js 18+ (for hooks)
+
+**Recommended:**
+- `claude-flow` - SPARC agents & parallel execution
+  ```bash
+  npm install -g claude-flow@alpha
+  ```
+- `gh` - GitHub CLI for `/fix:ci` command
+  ```bash
+  brew install gh  # macOS
+  ```
+
+**Optional (Feature-Specific):**
+
+| Feature | Dependencies | Install |
+|---------|--------------|---------|
+| AI Multimodal | Python 3.x, google-genai | `pip install google-genai` + set `GEMINI_API_KEY` |
+| Media Processing | FFmpeg, ImageMagick, rmbg-cli | `brew install ffmpeg imagemagick && npm i -g rmbg-cli` |
+| External Scouts | gemini CLI | `npm install -g @anthropic/gemini-cli` |
+| Database Queries | psql | `brew install postgresql` |
 
 ## Setup
 

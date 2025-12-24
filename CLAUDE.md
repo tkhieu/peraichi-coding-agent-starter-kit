@@ -147,3 +147,20 @@ Keep docs in `./docs/` folder:
 - `project-overview-pdr.md` - Product requirements
 - `code-standards.md` - Coding conventions
 - `codebase-summary.md` - Architecture overview
+
+## Dependencies
+
+**Required:** Node.js 18+, Git
+
+**Recommended:**
+- `claude-flow` - SPARC agents, parallel execution (`npm i -g claude-flow@alpha`)
+- `gh` - GitHub CLI for `/fix:ci` (`brew install gh`)
+
+**Optional by feature:**
+| Feature | Install |
+|---------|---------|
+| AI Multimodal | `pip install google-genai` + `GEMINI_API_KEY` |
+| Media Processing | `brew install ffmpeg imagemagick && npm i -g rmbg-cli` |
+| External Scouts | `npm i -g @anthropic/gemini-cli` |
+
+See `docs/quick-start.md` for complete setup instructions.
