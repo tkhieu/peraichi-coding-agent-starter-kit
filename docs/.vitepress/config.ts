@@ -5,7 +5,7 @@ export default defineConfig({
   description: 'Documentation for Claude Code AI Agent development framework',
 
   // GitHub Pages base path (change to '/' for root domain)
-  base: '/peraichi-ai-agent-starter/',
+  base: '/',
 
   // Clean URLs (no .html extension)
   cleanUrls: true,
