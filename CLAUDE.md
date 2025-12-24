@@ -19,12 +19,19 @@ Available commands in `.claude/commands/`:
 - `/code:no-test` - Skip testing phase
 - `/code:parallel` - Parallel task execution within phase
 
+### Utility
+- `/ask` - Smart question command with context
+- `/debug` - Quick debug entry point
+- `/brainstorm` - Ideation and creative exploration
+- `/scout` - Explore codebase structure
+
 ## Skills
 
 Skills available in `.claude/skills/`:
 - `planning` - Plan creation, organization, and validation
 - `code-review` - Code review reception, requesting reviews, verification gates
 - `debugging` - Systematic debugging, root cause tracing, defense-in-depth
+- `pair-programming` - Driver/navigator modes, TDD, mentor, debug sessions
 - `ai-multimodal` - Image generation/analysis, video processing, audio transcription
 - `media-processing` - FFmpeg video encoding, ImageMagick editing, background removal
 
@@ -123,9 +130,20 @@ plans/
 
 **Naming:** `{YYMMDD-HHmm}-{descriptive-slug}/`
 
+## Output Styles
+
+Response verbosity levels in `.claude/output-styles/`:
+- Level 0: ELI5 - Non-technical explanations
+- Level 1: Junior - Detailed with examples
+- Level 2: Mid - Balanced detail
+- Level 3: Senior - Concise (default)
+- Level 4: Lead - Architectural focus
+- Level 5: Expert - Minimal, code-focused
+
 ## Documentation
 
 Keep docs in `./docs/` folder:
+- `quick-start.md` - 5-minute setup guide
 - `project-overview-pdr.md` - Product requirements
 - `code-standards.md` - Coding conventions
 - `codebase-summary.md` - Architecture overview
