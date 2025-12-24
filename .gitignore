@@ -1,2 +1,11 @@
 .swarm
 .claude-flow
+
+# VitePress
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# Node.js
+node_modules
+package-lock.json
+pnpm-lock.yaml
