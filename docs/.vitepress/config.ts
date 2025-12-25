@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'Claude Code AI Agent Starter',
+  title: 'Peraichi Claude Code AI Agent Starter',
   description: 'Documentation for Claude Code AI Agent development framework',
 
   // GitHub Pages base path (change to '/' for root domain)

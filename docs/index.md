@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: "Claude Code AI Agent Starter"
+  name: "Peraichi Claude Code AI Agent Starter"
   text: "Build AI-powered development workflows"
   tagline: Multi-agent orchestration with SPARC methodology
   actions:

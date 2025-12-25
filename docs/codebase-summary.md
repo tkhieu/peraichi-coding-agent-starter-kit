@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**Claude Code AI Agent Starter** - A comprehensive framework for Claude Code with SPARC methodology, multi-agent orchestration, and intelligent automation.
+**Peraichi Claude Code AI Agent Starter** - A comprehensive framework for Claude Code with SPARC methodology, multi-agent orchestration, and intelligent automation.
 
 ### Project Type
 - Documentation site (VitePress-based)
@@ -99,7 +99,7 @@ peraichi-ai-agent-starter/
 ```
 
 ### Site Configuration
-- **Title:** Claude Code AI Agent Starter
+- **Title:** Peraichi Claude Code AI Agent Starter
 - **Description:** Documentation for Claude Code AI Agent development framework
 - **Theme:** GitHub light/dark with line numbers
 - **Navigation:** 5 main sections (Home, Getting Started, Commands, Guides, Reference)
